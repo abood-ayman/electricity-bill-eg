@@ -1,28 +1,30 @@
-# حاسبة فاتورة الكهرباء المنزلية
+# Home Electricity Bill (Egypt) | حاسبة فاتورة الكهرباء المنزلية
 
-قدّر فاتورتك من عدد الكيلووات حسب شرائح التعريفة المصرية
+Estimate a home electricity bill in Egypt from the kWh consumed, using the tariff tiers in effect since the September 2024 bill. Arabic interface.
 
-**رابط الأداة (تعمل فورًا من المتصفح):** https://abood-ayman.github.io/electricity-bill-eg/
+**Live app:** https://abood-ayman.github.io/electricity-bill-eg/
 
-## ما الذي تقدمه؟
+![Home Electricity Bill (Egypt), mobile view](docs/screenshot.svg)
 
-- شرائح التعريفة المنزلية المعمول بها منذ فاتورة سبتمبر 2024 (تقدير استرشادي)
-- كل الأسعار قابلة للتعديل لتطابق أي تحديث أو فاتورتك الفعلية
-- توضيح الشريحة التي وصل إليها استهلاكك وكيف حُسبت
-- تنبيه عند تجاوز حد الدعم (أكثر من ٦٥٠ كيلووات)
+This is a personal project, built with AI tools.
 
-## الخصوصية
+## Features
+- Residential tariff tiers in effect since the September 2024 bill (guidance estimate)
+- Every rate is editable to match any update or your actual bill
+- Shows which tier your consumption reached and how it was priced
+- Warns when consumption passes the subsidy limit (over 650 kWh)
 
-تعمل الأداة بالكامل داخل متصفحك (HTML/CSS/JavaScript فقط). لا يوجد خادم، ولا حسابات، ولا تتبّع، ولا تُرسل أو تُحفظ أي بيانات تدخلها خارج جهازك.
+## Note
+Estimates only: verify against your actual bill; rates change.
 
-## التقنية
+## Privacy
+Everything runs in your browser. No data is stored or sent anywhere.
 
-صفحة ثابتة واحدة بلا أي مكتبات خارجية، تعمل على الهاتف والحاسوب، وتُستضاف مجانًا عبر GitHub Pages.
+## Run locally
+Open `index.html` in any browser. It is a single static page with no dependencies.
 
-## ملاحظة شفافية
+## Status
+Stable.
 
-بُنيت هذه الأداة بمساعدة أدوات ذكاء اصطناعي، ورُوعيَت بساطتها وفائدتها المباشرة.
-
-## الرخصة
-
-MIT — انظر ملف LICENSE.
+## Copyright
+MIT License - Copyright (c) 2026 Abdullah Ayman.
