@@ -4,6 +4,8 @@ Estimate a home electricity bill in Egypt from the kWh consumed, using the tarif
 
 **Live app:** https://abood-ayman.github.io/electricity-bill-eg/
 
+**LinkedIn:** [Project entry](https://www.linkedin.com/in/abdullah-ayman-1678b737b/details/projects/)
+
 ![Home Electricity Bill (Egypt), mobile view](docs/screenshot.svg)
 
 This is a personal project, built with AI tools.
