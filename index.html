@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حاسبة فاتورة الكهرباء المنزلية (مصر) | أداة مجانية</title>
+<meta name="description" content="قدّر فاتورة الكهرباء المنزلية في مصر من عدد الكيلووات، بشرائح الأسعار المعمول بها منذ سبتمبر 2024، مع إمكانية تعديل الأسعار. دون إرسال بيانات.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Tahoma,'Segoe UI',Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+header{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;padding:1.6rem 1rem;text-align:center}
+header h1{font-size:1.5rem}
+.tagline{opacity:.92;font-size:.95rem;margin-top:.25rem}
+main{flex:1;width:100%;max-width:560px;margin:0 auto;padding:1rem}
+.card{background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 1px 4px rgba(15,23,42,.08);margin-bottom:1rem}
+.card h2{font-size:1.1rem;margin-bottom:.4rem;color:#0f766e}
+label{display:block;font-weight:700;margin:.75rem 0 .3rem}
+input,select,textarea{width:100%;padding:.7rem .8rem;border:1.5px solid #cbd5e1;border-radius:10px;font-size:1rem;font-family:inherit;background:#fff;color:#1e293b}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#0f766e;box-shadow:0 0 0 3px rgba(20,184,166,.18)}
+.row{display:flex;gap:.6rem}
+.row>*{flex:1;min-width:0}
+button{display:inline-block;width:100%;padding:.8rem;border:0;border-radius:10px;background:#0f766e;color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:1rem}
+button:hover{background:#115e59}
+button.ghost{background:#e2e8f0;color:#1e293b}
+.result{background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:10px;padding:1rem;margin-top:1rem;font-size:1.05rem;word-break:break-word}
+.result b{color:#047857}
+.result.warn{background:#fffbeb;border-color:#fcd34d}
+.result.warn b{color:#b45309}
+.result.bad{background:#fef2f2;border-color:#fca5a5}
+.result.bad b{color:#b91c1c}
+.muted{color:#64748b;font-size:.85rem}
+footer{background:#0f172a;color:#94a3b8;text-align:center;padding:1.2rem 1rem;font-size:.85rem;line-height:1.9}
+footer a{color:#5eead4}
+table{width:100%;border-collapse:collapse;margin-top:.5rem}
+th,td{padding:.5rem;border-bottom:1px solid #e2e8f0;text-align:right;font-size:.95rem}
+.big{font-size:1.6rem;font-weight:800}
+.hidden{display:none}
+.chk{display:flex;align-items:center;gap:.5rem;margin:.3rem 0}
+.chk input{width:auto}
+
+</style>
+</head>
+<body>
+<header>
+<h1>حاسبة فاتورة الكهرباء المنزلية</h1>
+<p class="tagline">قدّر فاتورتك من عدد الكيلووات حسب شرائح التعريفة المصرية</p>
+</header>
+<main>
+<div class="card">
+<h2>استهلاكك</h2>
+<label for="kwh">عدد الكيلووات في الشهر (ك.و.س)</label>
+<input type="number" inputmode="decimal" id="kwh" min="0" placeholder="مثال: 300">
+<button onclick="calc()">احسب الفاتورة التقديرية</button>
+<div id="out" class="result hidden"></div>
+</div>
+<div class="card">
+<h2>أسعار الشرائح (قرش لكل كيلووات — قابلة للتعديل)</h2>
+<p class="muted">القيم الحالية وفق التعريفة المعمول بها منذ فاتورة سبتمبر 2024. حدّثها إن تغيرت الأسعار.</p>
+<div class="row"><div><label for="r1">أول ٥٠</label><input type="number" inputmode="decimal" id="r1" value="68"></div>
+<div><label for="r2">من ٥١ إلى ١٠٠</label><input type="number" inputmode="decimal" id="r2" value="78"></div></div>
+<div class="row"><div><label for="r3">١٠١–٢٠٠ (لكل الاستهلاك)</label><input type="number" inputmode="decimal" id="r3" value="95"></div>
+<div><label for="r4">٢٠١–٣٥٠ (لكل الاستهلاك)</label><input type="number" inputmode="decimal" id="r4" value="155"></div></div>
+<div class="row"><div><label for="r5">٣٥١–٦٥٠ (لكل الاستهلاك)</label><input type="number" inputmode="decimal" id="r5" value="195"></div>
+<div><label for="r6">٦٥١–١٠٠٠ (بدون دعم)</label><input type="number" inputmode="decimal" id="r6" value="210"></div></div>
+<div class="row"><div><label for="r7">أكثر من ١٠٠٠</label><input type="number" inputmode="decimal" id="r7" value="223"></div></div>
+</div>
+<p class="muted" style="text-align:center">تقدير لقيمة الاستهلاك فقط؛ الفاتورة الفعلية تضيف رسومًا ثابتة صغيرة (مقابل خدمة عملاء ورسوم نظافة ودمغة).</p>
+
+</main>
+<footer>
+<p>تعمل هذه الأداة بالكامل على جهازك، ولا تُحفظ أو تُرسل أي بيانات إلى أي خادم.</p>
+<p>أداة مجانية مفتوحة المصدر · بُنيت بمساعدة أدوات ذكاء اصطناعي · <a href="https://github.com/abood-ayman/electricity-bill-eg">الكود على GitHub</a></p>
+</footer>
+<script>
+window.__jserrors=[];window.addEventListener('error',function(e){window.__jserrors.push(String(e.message))});
+const g = id => document.getElementById(id);
+const num = id => { const v = parseFloat(g(id).value); return isNaN(v) ? 0 : v; };
+
+// Egyptian residential tariff (effective since the Sept 2024 bill):
+// tiers 1-2 are marginal; from tier 3 up the WHOLE consumption is billed at the bracket rate.
+function bill(kwh, r) {
+  if (kwh <= 0) return { total: 0, how: 'لا استهلاك', tier: 0 };
+  if (kwh <= 100) {
+    const a = Math.min(kwh, 50) * r.r1;
+    const b = Math.max(0, kwh - 50) * r.r2;
+    return { total: (a + b) / 100, how: 'أول ٥٠ × ' + r.r1 + ' قرش + الباقي × ' + r.r2 + ' قرش', tier: kwh <= 50 ? 1 : 2 };
+  }
+  if (kwh <= 200) return { total: kwh * r.r3 / 100, how: 'كل الاستهلاك × ' + r.r3 + ' قرش (الشريحة الثالثة)', tier: 3 };
+  if (kwh <= 350) return { total: kwh * r.r4 / 100, how: 'كل الاستهلاك × ' + r.r4 + ' قرش (الشريحة الرابعة)', tier: 4 };
+  if (kwh <= 650) return { total: kwh * r.r5 / 100, how: 'كل الاستهلاك × ' + r.r5 + ' قرش (الشريحة الخامسة)', tier: 5 };
+  if (kwh <= 1000) return { total: kwh * r.r6 / 100, how: 'كل الاستهلاك × ' + r.r6 + ' قرش (بدون دعم)', tier: 6 };
+  return { total: kwh * r.r7 / 100, how: 'كل الاستهلاك × ' + r.r7 + ' قرش (بدون دعم)', tier: 7 };
+}
+
+function calc() {
+  const kwh = num('kwh');
+  const r = { r1: num('r1'), r2: num('r2'), r3: num('r3'), r4: num('r4'), r5: num('r5'), r6: num('r6'), r7: num('r7') };
+  const b = bill(kwh, r);
+  const el = g('out');
+  el.classList.remove('hidden', 'warn');
+  let h = '<p class="big">الفاتورة التقديرية: <b>' + b.total.toLocaleString('ar-EG', { maximumFractionDigits: 2 }) + ' جنيه</b></p>' +
+          '<p>طريقة الحساب: ' + b.how + '</p>';
+  if (b.tier >= 6) { el.classList.add('warn'); h += '<p><b>تنبيه:</b> تجاوزك ٦٥٠ كيلووات يُسقط الدعم، فتُحاسب على كل الاستهلاك بسعر أعلى.</p>'; }
+  el.innerHTML = h;
+}
+
+window.__test = function () {
+  const r = { r1: 68, r2: 78, r3: 95, r4: 155, r5: 195, r6: 210, r7: 223 };
+  const a = bill(80, r), b = bill(150, r), c = bill(400, r), d = bill(700, r), e = bill(1200, r), f = bill(40, r);
+  const ok = Math.abs(a.total - 57.4) < 0.01 && Math.abs(b.total - 142.5) < 0.01 &&
+             Math.abs(c.total - 780) < 0.01 && Math.abs(d.total - 1470) < 0.01 &&
+             Math.abs(e.total - 2676) < 0.01 && Math.abs(f.total - 27.2) < 0.01 && a.tier === 2 && d.tier === 6;
+  return { pass: ok, details: { a: a.total, b: b.total, c: c.total, d: d.total, e: e.total, f: f.total } };
+};
+
+window.__demo = function () {
+  g('kwh').value = 320;
+  calc();
+};
+
+</script>
+</body>
+</html>
